@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skincare Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(120deg, #f8fafc 0%, #e3e6f3 100%);
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+            padding: 18px 0;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #3a3a3a;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .navbar a:hover {
+            color: #4e7c7c;
+            transform: scale(1.08);
+        }
+
+        .cover-img {
+            width: 100%;
+            max-height: 320px;
+            object-fit: cover;
+            border-radius: 0 0 18px 18px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .main-table {
+            width: 90%;
+            margin: 32px auto;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.09);
+            border: none;
+        }
+
+        .main-table td {
+            background: #fff;
+            padding: 24px 18px;
+            font-size: 1.08rem;
+            vertical-align: top;
+        }
+
+        .main-menu ol {
+            padding-left: 18px;
+        }
+
+        .main-menu li {
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            transition: background 0.2s, color 0.2s;
+            border-radius: 6px;
+            padding: 4px 8px;
+        }
+
+        .main-menu li:hover {
+            background: #e3e6f3;
+            color: #4e7c7c;
+            cursor: pointer;
+        }
+
+        .main-menu a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .offer {
+            background: linear-gradient(90deg, #f9e7e7 0%, #e3f3e6 100%);
+            color: #4e7c7c;
+            font-weight: bold;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 12px;
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            transition: background 0.2s;
+        }
+
+        .offer:hover {
+            background: #e3e6f3;
+        }
+
+        .goal {
+            font-size: 1.08rem;
+            color: #3a3a3a;
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 18px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .products {
+            display: flex;
+            justify-content: space-around;
+            align-items: stretch;
+            gap: 18px;
+            margin: 32px auto 0 auto;
+            width: 90%;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+            padding: 12px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 24%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.04);
+            box-shadow: 0 8px 24px rgba(78, 124, 124, 0.13);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .product-title {
+            font-weight: 500;
+            color: #4e7c7c;
+            font-size: 1.08rem;
+        }
+
+        @media (max-width: 900px) {
+            .products {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .product-card {
+                width: 80%;
+                margin-bottom: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="file:///C:/Users/asm/OneDrive/Desktop/web_work/index.html#">Home</a>
+        <a href="file:///C:/Users/asm/OneDrive/Desktop/web_work/index.html#">About</a>
+        <a href="forms.html">Contact Us</a>
+    </nav>
+    <img class="cover-img" src="./skincare page_files/cover.png" alt="skincare brand">
+    <table class="main-table">
+        <tbody>
+            <tr>
+                <td class="main-menu" colspan="3" rowspan="3">
+                    <strong>Main menu</strong>
+                    <ol>
+                        <li><a href="#">Sunscreen</a></li>
+                        <li><a href="#">Serums</a></li>
+                        <li><a href="#">Facewash</a></li>
+                        <li><a href="#">Scrub</a></li>
+                    </ol>
+                </td>
+                <td class="goal" colspan="3" rowspan="3">
+                    <strong>Our goal</strong>
+                    <p>
+                        Our goal is to provide safe and effective skincare products that improve skin health
+                        naturally.<br>
+                        We aim to help people feel confident and comfortable in their own skin every day.<br>
+                        We are committed to using high-quality, skin-friendly ingredients while caring for the
+                        environment.
+                    </p>
+                </td>
+                <td class="offer">Flat 20% off on serums</td>
+            </tr>
+            <tr>
+                <td class="offer">Offer valid only for first 20 customers</td>
+            </tr>
+            <tr>
+                <td class="offer">Feel confident in your skin using our products</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="products">
+        <div class="product-card">
+            <img src="./skincare page_files/Screenshot 2026-01-22 133610.png" alt="Face toner">
+            <div class="product-title">Face Toner</div>
+        </div>
+        <div class="product-card">
+            <img src="./skincare page_files/Screenshot 2026-01-22 133701.png" alt="Double Cleanser">
+            <div class="product-title">Double Cleanser</div>
+        </div>
+        <div class="product-card">
+            <img src="./skincare page_files/Screenshot 2026-01-22 134531.png" alt="Serum">
+            <div class="product-title">Serum</div>
+        </div>
+        <div class="product-card">
+            <img src="./skincare page_files/Screenshot 2026-01-24 123904.png" alt="Moisturizer">
+            <div class="product-title">Moisturizer</div>
+        </div>
+    </div>
+</body>
+
+</html>
