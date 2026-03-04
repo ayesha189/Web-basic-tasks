@@ -50,17 +50,39 @@ An interactive foreign exchange trading dashboard UI.
 A beautifully designed skincare profile registration form with full validation.
 
 **Features:**
-- Animated slide-in form with gradient background
+- Animated slide-in form with purple gradient background
 - **Personal Information** section — Name, Email, Phone, Password, Date, City dropdown
-- **Skin Profile** section — Skin type selection via radio buttons (Oily, Dry, Combination, Normal)
+- **Skin Profile** section — Skin type via radio buttons (Oily, Dry, Combination, Normal)
 - **Monthly Budget** slider with live value display ($0–$100)
-- **Products & Interests** section — Checkboxes for Cleanser, Serum, Moisturizer, Sunscreen, Face Mask
+- **Products & Interests** checkboxes — Cleanser, Serum, Moisturizer, Sunscreen, Face Mask
 - **Skin Concerns** checkboxes — Acne, Pigmentation, Fine Lines, Sensitive Skin
 - Additional comments textarea
-- Real-time form validation with error highlighting
+- Real-time form validation with red error highlighting
 - Success message on valid submission
 - Reset button to clear all fields
 - Fully responsive for mobile screens
+
+---
+
+### 5. Skincare Brand Front Page 🌿
+A complete landing page for a skincare brand built using HTML tables, Flexbox, and CSS animations.
+
+**Features:**
+- **Navbar** — Home, About, and Contact Us navigation links with hover scale effect
+- **Cover Image** — Full-width brand banner with rounded bottom edges
+- **Main Table Layout** — Three-column structured section containing:
+  - **Main Menu** — Ordered list of product categories (Sunscreen, Serums, Facewash, Scrub) with hover highlight
+  - **Our Goal** — Brand mission statement about safe, effective, and eco-friendly skincare
+  - **Offers Panel** — Promotional banners (Flat 20% off on serums, First 20 customers offer, brand tagline)
+- **Product Cards Section** — Responsive Flexbox grid showcasing 4 products:
+  - Face Toner
+  - Double Cleanser
+  - Serum
+  - Moisturizer
+- Smooth card hover animation (lift and scale effect)
+- Soft gradient background throughout the page
+- Mobile responsive — product cards stack vertically on small screens
+- Linked to the Skincare Registration Form (`forms.html`) via Contact Us
 
 ---
 
@@ -68,8 +90,8 @@ A beautifully designed skincare profile registration form with full validation.
 
 | Technology | Usage |
 |---|---|
-| HTML5 | Structure and layout |
-| CSS3 | Styling, animations, and responsiveness |
+| HTML5 | Structure, tables, and layout |
+| CSS3 | Styling, animations, Flexbox, and responsiveness |
 | JavaScript | Logic, validation, and interactivity |
 
 ---
@@ -92,6 +114,8 @@ web-dev-tasks/
         script.js
     skincare-form/
         form.html
+    skincare-brand/
+        skincare.html
     README.md
 ```
 
@@ -120,7 +144,8 @@ git clone https://github.com/ayesha189/YOUR-REPO-NAME.git
 | 2 | ATM Machine | ✅ Complete | HTML, CSS, JS |
 | 3 | Forex Trading Dashboard | ✅ Complete | HTML, CSS, JS |
 | 4 | Skincare Registration Form | ✅ Complete | HTML, CSS, JS |
-| 5 | More coming soon... | 🔄 In Progress | — |
+| 5 | Skincare Brand Front Page | ✅ Complete | HTML, CSS |
+| 6 | More coming soon... | 🔄 In Progress | — |
 
 ---
 
