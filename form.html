@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skincare Registration Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-section h3 {
+            color: #667eea;
+            font-size: 16px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="password"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        input[type="password"]:focus,
+        input[type="date"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .radio-group,
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .radio-item,
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+
+        .radio-item label,
+        .checkbox-item label {
+            margin: 0;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        .range-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        input[type="range"] {
+            flex: 1;
+            height: 6px;
+            border-radius: 3px;
+            background: #e0e0e0;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            background: #764ba2;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.4);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            border: none;
+        }
+
+        .range-value {
+            min-width: 40px;
+            text-align: center;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 35px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        button[type="submit"] {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        button[type="submit"]:active {
+            transform: translateY(0);
+        }
+
+        button[type="reset"] {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        button[type="reset"]:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        input.error,
+        textarea.error {
+            border-color: #e74c3c !important;
+        }
+
+        input.error:focus,
+        textarea.error:focus {
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1) !important;
+        }
+
+        .success-message {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>✨ Skincare Profile</h1>
+        <p class="subtitle">Tell us about your skin and preferences</p>
+        <div class="success-message" id="successMsg">✓ Form submitted successfully!</div>
+
+        <form id="skinForm" action="#" method="post">
+            <!-- Personal Information Section -->
+            <div class="form-section">
+                <h3>Personal Information</h3>
+
+                <div class="form-group">
+                    <label for="username">Name:</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your name" required>
+                    <div class="error-message">Please enter your name</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                    <div class="error-message">Please enter a valid email</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter phone number" required>
+                    <div class="error-message">Please enter a valid phone number</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <div class="error-message">Password is required</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="regdate">Registration Date:</label>
+                    <input type="date" id="regdate" name="date" required>
+                    <div class="error-message">Please select a date</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="city">Select Your City:</label>
+                    <select id="city" name="city" required>
+                        <option value="">Select City</option>
+                        <option value="lahore">Lahore</option>
+                        <option value="karachi">Karachi</option>
+                        <option value="islamabad">Islamabad</option>
+                        <option value="peshawar">Peshawar</option>
+                        <option value="quetta">Quetta</option>
+                    </select>
+                    <div class="error-message">Please select a city</div>
+                </div>
+            </div>
+
+            <!-- Skin Profile Section -->
+            <div class="form-section">
+                <h3>Skin Profile</h3>
+
+                <div class="form-group">
+                    <label>Skin Type:</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="oily" name="skinType" value="oily" required>
+                            <label for="oily">Oily</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="dry" name="skinType" value="dry">
+                            <label for="dry">Dry</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="combination" name="skinType" value="combination">
+                            <label for="combination">Combination</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="normal" name="skinType" value="normal">
+                            <label for="normal">Normal</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Monthly Budget for Skincare:</label>
+                    <div class="range-container">
+                        <input type="range" id="budget" name="budget" min="0" max="100" value="50">
+                        <span class="range-value">$<span id="budgetValue">50</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products & Concerns Section -->
+            <div class="form-section">
+                <h3>Products & Interests</h3>
+
+                <div class="form-group">
+                    <label>Products You're Interested In:</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="cleanser" name="products" value="cleanser">
+                            <label for="cleanser">Facial Cleanser</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="serum" name="products" value="serum">
+                            <label for="serum">Vitamin C Serum</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="moisturizer" name="products" value="moisturizer">
+                            <label for="moisturizer">Moisturizer</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sunscreen" name="products" value="sunscreen">
+                            <label for="sunscreen">Sunscreen</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="mask" name="products" value="mask">
+                            <label for="mask">Face Mask</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Main Skin Concerns:</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="acne" name="concerns" value="acne">
+                            <label for="acne">Acne</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pigmentation" name="concerns" value="pigmentation">
+                            <label for="pigmentation">Pigmentation</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="aging" name="concerns" value="aging">
+                            <label for="aging">Fine Lines / Aging</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sensitivity" name="concerns" value="sensitivity">
+                            <label for="sensitivity">Sensitive Skin</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="comments">Additional Comments:</label>
+                    <textarea id="comments" name="comments" placeholder="Tell us about your skin goals..."></textarea>
+                    <div class="error-message">Comments are required</div>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-group">
+                <button type="submit">Register</button>
+                <button type="reset">Clear</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('skinForm');
+        const budgetInput = document.getElementById('budget');
+        const budgetValue = document.getElementById('budgetValue');
+        const successMsg = document.getElementById('successMsg');
+
+        // Update budget display
+        budgetInput.addEventListener('input', function () {
+            budgetValue.textContent = this.value;
+        });
+
+        // Form validation
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if (validateForm()) {
+                // Show success message
+                successMsg.style.display = 'block';
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                }, 3000);
+
+                // Log form data
+                console.log('Form submitted successfully!');
+                // Uncomment to actually send: form.submit();
+            }
+        });
+
+        function validateForm() {
+            let isValid = true;
+            const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+
+            inputs.forEach(input => {
+                const errorMsg = input.nextElementSibling;
+
+                if (!input.value.trim()) {
+                    input.classList.add('error');
+                    if (errorMsg && errorMsg.classList.contains('error-message')) {
+                        errorMsg.style.display = 'block';
+                    }
+                    isValid = false;
+                } else {
+                    input.classList.remove('error');
+                    if (errorMsg && errorMsg.classList.contains('error-message')) {
+                        errorMsg.style.display = 'none';
+                    }
+                }
+            });
+
+            return isValid;
+        }
+
+        // Clear error on input
+        form.querySelectorAll('input, textarea, select').forEach(field => {
+            field.addEventListener('input', function () {
+                this.classList.remove('error');
+                const errorMsg = this.nextElementSibling;
+                if (errorMsg && errorMsg.classList.contains('error-message')) {
+                    errorMsg.style.display = 'none';
+                }
+            });
+        });
+
+        // Reset success message on form reset
+        form.addEventListener('reset', function () {
+            successMsg.style.display = 'none';
+            form.querySelectorAll('input, textarea').forEach(field => {
+                field.classList.remove('error');
+            });
+        });
+    </script>
+</body>
+
+</html>
