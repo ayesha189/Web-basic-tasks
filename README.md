@@ -46,13 +46,31 @@ An interactive foreign exchange trading dashboard UI.
 
 ---
 
+### 4. Skincare Registration Form ✨
+A beautifully designed skincare profile registration form with full validation.
+
+**Features:**
+- Animated slide-in form with gradient background
+- **Personal Information** section — Name, Email, Phone, Password, Date, City dropdown
+- **Skin Profile** section — Skin type selection via radio buttons (Oily, Dry, Combination, Normal)
+- **Monthly Budget** slider with live value display ($0–$100)
+- **Products & Interests** section — Checkboxes for Cleanser, Serum, Moisturizer, Sunscreen, Face Mask
+- **Skin Concerns** checkboxes — Acne, Pigmentation, Fine Lines, Sensitive Skin
+- Additional comments textarea
+- Real-time form validation with error highlighting
+- Success message on valid submission
+- Reset button to clear all fields
+- Fully responsive for mobile screens
+
+---
+
 ## 🛠️ Tech Stack
 
 | Technology | Usage |
 |---|---|
 | HTML5 | Structure and layout |
-| CSS3 | Styling and responsiveness |
-| JavaScript | Logic and interactivity |
+| CSS3 | Styling, animations, and responsiveness |
+| JavaScript | Logic, validation, and interactivity |
 
 ---
 
@@ -72,6 +90,8 @@ web-dev-tasks/
         index.html
         style.css
         script.js
+    skincare-form/
+        form.html
     README.md
 ```
 
@@ -88,18 +108,19 @@ git clone https://github.com/ayesha189/YOUR-REPO-NAME.git
 
 2. Open the project folder
 
-3. Double-click `index.html` — it opens directly in your browser
+3. Double-click the `.html` file — it opens directly in your browser
 
 ---
 
 ## 📅 Progress Tracker
 
-| Project | Status | Tech Used |
-|---|---|---|
-| Simple Calculator | ✅ Complete | HTML, CSS, JS |
-| ATM Machine | ✅ Complete | HTML, CSS, JS |
-| Forex Trading Dashboard | ✅ Complete | HTML, CSS, JS |
-| More coming soon... | 🔄 In Progress | — |
+| # | Project | Status | Tech Used |
+|---|---|---|---|
+| 1 | Simple Calculator | ✅ Complete | HTML, CSS, JS |
+| 2 | ATM Machine | ✅ Complete | HTML, CSS, JS |
+| 3 | Forex Trading Dashboard | ✅ Complete | HTML, CSS, JS |
+| 4 | Skincare Registration Form | ✅ Complete | HTML, CSS, JS |
+| 5 | More coming soon... | 🔄 In Progress | — |
 
 ---
 
