@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Car Showcase</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --sky-top: #0a0e1a;
+            --sky-mid: #0d2147;
+            --sky-bottom: #1a3a6e;
+            --road-surface: #1c1c1c;
+            --road-edge: #111;
+            --asphalt-line: #f5c518;
+            --white-mark: #f0f0f0;
+            --car-body: #c0392b;
+            --car-dark: #922b21;
+            --car-light: #e74c3c;
+            --glass: #aed6f1;
+            --wheel-dark: #1a1a1a;
+            --accent: #f5c518;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 55%, var(--sky-bottom) 100%);
+            font-family: 'Rajdhani', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* STARS */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle var(--dur, 3s) ease-in-out infinite var(--delay, 0s);
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: var(--bright, 0.8);
+            }
+        }
+
+        /* HEADER */
+        header {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 50px 20px 30px;
+        }
+
+        header h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            color: #fff;
+            letter-spacing: 6px;
+            line-height: 1;
+            text-shadow: 0 0 40px rgba(245, 197, 24, 0.4), 0 4px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        header h1 span {
+            color: var(--accent);
+        }
+
+        header p {
+            margin-top: 12px;
+            color: #8ab4d8;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* ===== ROAD SCENE ===== */
+        .scene {
+            position: relative;
+            width: 100vw;
+            overflow: hidden;
+            z-index: 5;
+        }
+
+        /* Horizon glow */
+        .horizon-glow {
+            position: absolute;
+            bottom: 260px;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: radial-gradient(ellipse 60% 100% at 50% 100%, rgba(245, 197, 24, 0.12) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        /* CITYSCAPE SILHOUETTE */
+        .cityscape {
+            position: absolute;
+            bottom: 260px;
+            left: 0;
+            right: 0;
+            height: 160px;
+            display: flex;
+            align-items: flex-end;
+            pointer-events: none;
+            opacity: 0.35;
+        }
+
+        .building {
+            background: #0a1628;
+            flex-shrink: 0;
+        }
+
+        /* windows */
+        .building::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 14px, rgba(245, 197, 24, 0.35) 14px, rgba(245, 197, 24, 0.35) 16px), repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(245, 197, 24, 0.35) 10px, rgba(245, 197, 24, 0.35) 12px);
+        }
+
+        /* GROUND / SIDEWALK */
+        .ground {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 260px;
+        }
+
+        /* Sidewalk top edge */
+        .sidewalk {
+            position: absolute;
+            bottom: 210px;
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(180deg, #2d2d2d 0%, #242424 100%);
+        }
+
+        .sidewalk::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #3a3a3a;
+        }
+
+        /* Curb line */
+        .curb {
+            position: absolute;
+            bottom: 208px;
+            width: 100%;
+            height: 6px;
+            background: #888;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ROAD */
+        .road {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 210px;
+            background: var(--road-surface);
+            overflow: hidden;
+        }
+
+        /* Road texture overlay */
+        .road::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(255, 255, 255, 0.015) 3px, rgba(255, 255, 255, 0.015) 6px);
+            pointer-events: none;
+        }
+
+        /* Yellow center line */
+        .road-center-line {
+            position: absolute;
+            top: 40%;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            display: flex;
+            gap: 0;
+        }
+
+        .road-center-line::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(90deg,
+                    var(--asphalt-line) 0px,
+                    var(--asphalt-line) 60px,
+                    transparent 60px,
+                    transparent 100px);
+            opacity: 0.85;
+        }
+
+        /* White lane dashes */
+        .road-dashes {
+            position: absolute;
+            top: 20%;
+            left: 0;
+            width: 100%;
+            height: 3px;
+        }
+
+        .road-dashes::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(90deg,
+                    var(--white-mark) 0px,
+                    var(--white-mark) 40px,
+                    transparent 40px,
+                    transparent 80px);
+            opacity: 0.5;
+        }
+
+        /* Bottom edge line */
+        .road-edge-line {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--white-mark);
+            opacity: 0.4;
+        }
+
+        @keyframes road-scroll {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: -100px 0;
+            }
+        }
+
+        /* Lamp posts */
+        .lamp-row {
+            position: absolute;
+            bottom: 215px;
+            left: 0;
+            width: 100%;
+            height: 110px;
+            pointer-events: none;
+        }
+
+        .lamp {
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lamp-pole {
+            width: 5px;
+            height: 90px;
+            background: linear-gradient(180deg, #888 0%, #555 100%);
+            border-radius: 2px;
+        }
+
+        .lamp-arm {
+            position: absolute;
+            top: 0;
+            left: -18px;
+            width: 22px;
+            height: 5px;
+            background: #777;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .lamp-head {
+            position: absolute;
+            top: -8px;
+            left: -30px;
+            width: 20px;
+            height: 10px;
+            background: linear-gradient(180deg, #ffe97a 0%, #f5c518 100%);
+            border-radius: 4px 4px 6px 6px;
+            box-shadow: 0 0 14px 6px rgba(245, 197, 24, 0.45), 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .lamp-glow {
+            position: absolute;
+            top: 2px;
+            left: -44px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(245, 197, 24, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* ===== CAR ===== */
+        #car_wrapper {
+            position: absolute;
+            bottom: 78px;
+            left: 0;
+            width: 300px;
+            cursor: pointer;
+            z-index: 20;
+        }
+
+        #car_body {
+            position: relative;
+            width: 300px;
+            height: 80px;
+            background: linear-gradient(160deg, var(--car-light) 0%, var(--car-body) 50%, var(--car-dark) 100%);
+            border-radius: 30px 28px 18px 18px / 30px 28px 28px 28px;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.6),
+                inset 0 2px 6px rgba(255, 255, 255, 0.15),
+                0 0 0 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Underbody glow */
+        #car_body::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 20px;
+            right: 20px;
+            height: 12px;
+            background: radial-gradient(ellipse, rgba(231, 76, 60, 0.5) 0%, transparent 80%);
+            filter: blur(4px);
+        }
+
+        /* Car roof */
+        #car_roof {
+            width: 150px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--car-light) 0%, var(--car-body) 60%, var(--car-dark) 100%);
+            position: absolute;
+            top: -44px;
+            left: 72px;
+            border-radius: 50px 50px 10px 10px / 50px 50px 8px 8px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Windows */
+        .car-window {
+            position: absolute;
+            background: linear-gradient(135deg, #d6eaf8 0%, var(--glass) 50%, #85c1e9 100%);
+            border: 1.5px solid rgba(255, 255, 255, 0.4);
+            box-shadow: inset 0 1px 4px rgba(255, 255, 255, 0.5);
+        }
+
+        .win-front {
+            top: -36px;
+            left: 144px;
+            width: 54px;
+            height: 30px;
+            border-radius: 6px 14px 2px 2px;
+        }
+
+        .win-rear {
+            top: -36px;
+            left: 92px;
+            width: 46px;
+            height: 30px;
+            border-radius: 14px 6px 2px 2px;
+        }
+
+        /* Window shine */
+        .win-front::after,
+        .win-rear::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 4px;
+            width: 40%;
+            height: 30%;
+            background: rgba(255, 255, 255, 0.45);
+            border-radius: 4px;
+            transform: rotate(-10deg);
+        }
+
+        /* Door panels */
+        .car-door {
+            position: absolute;
+            top: 12px;
+            height: 44px;
+            border-radius: 6px;
+            border: 1.5px solid rgba(0, 0, 0, 0.25);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(0, 0, 0, 0.08) 100%);
+        }
+
+        .door-1 {
+            left: 50px;
+            width: 70px;
+        }
+
+        .door-2 {
+            left: 128px;
+            width: 70px;
+        }
+
+        /* Door handle */
+        .car-handle {
+            position: absolute;
+            top: 34px;
+            width: 22px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.35);
+            border-radius: 3px;
+        }
+
+        .handle-1 {
+            left: 104px;
+        }
+
+        .handle-2 {
+            left: 182px;
+        }
+
+        /* Headlights */
+        .headlight {
+            position: absolute;
+            bottom: 18px;
+            width: 22px;
+            height: 14px;
+            background: linear-gradient(90deg, #fff9c4, #fffde7);
+            border-radius: 4px 8px 8px 4px;
+            box-shadow: 0 0 16px 6px rgba(255, 253, 200, 0.7), 0 0 40px 10px rgba(255, 245, 100, 0.3);
+        }
+
+        .headlight-main {
+            right: 10px;
+        }
+
+        .headlight-low {
+            right: 36px;
+            width: 14px;
+            height: 10px;
+            bottom: 20px;
+            opacity: 0.7;
+        }
+
+        /* Tail lights */
+        .taillight {
+            position: absolute;
+            top: 20px;
+            left: 6px;
+            width: 10px;
+            height: 24px;
+            background: linear-gradient(180deg, #ff6b6b, #c0392b);
+            border-radius: 3px;
+            box-shadow: 0 0 10px 4px rgba(231, 76, 60, 0.6);
+        }
+
+        /* Hood line */
+        .hood-line {
+            position: absolute;
+            top: 28px;
+            right: 50px;
+            left: 50px;
+            height: 2px;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 1px;
+        }
+
+        /* Bumper */
+        .bumper {
+            position: absolute;
+            bottom: -4px;
+            left: 8px;
+            right: 8px;
+            height: 10px;
+            background: linear-gradient(180deg, #555 0%, #333 100%);
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Wheels */
+        .wheel {
+            width: 52px;
+            height: 52px;
+            position: absolute;
+            bottom: -26px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 50% 50%, #2a2a2a 30%, #1a1a1a 60%, #333 100%);
+            border: 6px solid #111;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7), inset 0 0 8px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            z-index: 25;
+        }
+
+        #front_wheel {
+            left: 36px;
+        }
+
+        #rear_wheel {
+            right: 36px;
+        }
+
+        /* Tire tread */
+        .wheel::before {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            border-radius: 50%;
+            border: 3px dashed rgba(80, 80, 80, 0.6);
+        }
+
+        /* Hub */
+        .wheel-hub {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 22px;
+            height: 22px;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #aaa 0%, #666 50%, #444 100%);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Hub spokes */
+        .spoke {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: 50%;
+            background: #888;
+            transform-origin: 50% 0%;
+            transform: translate(-50%, 0) rotate(calc(var(--i) * 60deg));
+        }
+
+        @keyframes spin_wheels {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spinning {
+            animation: spin_wheels 0.35s linear infinite;
+        }
+
+        /* ===== ANIMATION ===== */
+        #car_wrapper {
+            transition: none;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+            color: #4a6fa5;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            z-index: 10;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Stars -->
+    <div class="stars" id="stars"></div>
+
+    <header>
+        <h1>CAR <span>SHOWCASE</span></h1>
+        <p>Hover over the car &mdash; watch it race</p>
+    </header>
+
+    <div class="scene" style="height: 420px;">
+        <div class="horizon-glow"></div>
+
+        <!-- City silhouette -->
+        <div class="cityscape" id="cityscape"></div>
+
+        <!-- Ground -->
+        <div class="ground">
+            <div class="sidewalk"></div>
+            <div class="curb"></div>
+            <div class="road">
+                <div class="road-dashes"></div>
+                <div class="road-center-line"></div>
+                <div class="road-edge-line"></div>
+            </div>
+        </div>
+
+        <!-- Lamp posts -->
+        <div class="lamp-row" id="lamp-row"></div>
+
+        <!-- CAR -->
+        <div id="car_wrapper">
+            <div id="car_body">
+                <div id="car_roof"></div>
+                <div class="car-window win-rear"></div>
+                <div class="car-window win-front"></div>
+                <div class="car-door door-1"></div>
+                <div class="car-door door-2"></div>
+                <div class="car-handle handle-1"></div>
+                <div class="car-handle handle-2"></div>
+                <div class="headlight headlight-main"></div>
+                <div class="headlight headlight-low"></div>
+                <div class="taillight"></div>
+                <div class="hood-line"></div>
+                <div class="bumper"></div>
+                <div class="wheel" id="front_wheel">
+                    <div class="spoke" style="--i:0"></div>
+                    <div class="spoke" style="--i:1"></div>
+                    <div class="spoke" style="--i:2"></div>
+                    <div class="spoke" style="--i:3"></div>
+                    <div class="spoke" style="--i:4"></div>
+                    <div class="spoke" style="--i:5"></div>
+                    <div class="wheel-hub"></div>
+                </div>
+                <div class="wheel" id="rear_wheel">
+                    <div class="spoke" style="--i:0"></div>
+                    <div class="spoke" style="--i:1"></div>
+                    <div class="spoke" style="--i:2"></div>
+                    <div class="spoke" style="--i:3"></div>
+                    <div class="spoke" style="--i:4"></div>
+                    <div class="spoke" style="--i:5"></div>
+                    <div class="wheel-hub"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 &bull; <a href="https://github.com/yourusername/web_cp" target="_blank">View on GitHub</a>
+    </footer>
+
+    <script>
+        /* ---- Stars ---- */
+        const starsEl = document.getElementById('stars');
+        for (let i = 0; i < 120; i++) {
+            const s = document.createElement('div');
+            s.className = 'star';
+            s.style.cssText = `
+            left:${Math.random() * 100}%;
+            top:${Math.random() * 100}%;
+            --dur:${2 + Math.random() * 4}s;
+            --delay:${Math.random() * 5}s;
+            --bright:${0.4 + Math.random() * 0.6};
+            width:${Math.random() < 0.2 ? 3 : 2}px;
+            height:${Math.random() < 0.2 ? 3 : 2}px;
+        `;
+            starsEl.appendChild(s);
+        }
+
+        /* ---- City buildings ---- */
+        const city = document.getElementById('cityscape');
+        const bldgs = [
+            { w: 40, h: 80 }, { w: 25, h: 140 }, { w: 60, h: 110 }, { w: 30, h: 60 }, { w: 50, h: 150 },
+            { w: 35, h: 90 }, { w: 70, h: 120 }, { w: 28, h: 70 }, { w: 45, h: 160 }, { w: 55, h: 100 },
+            { w: 30, h: 80 }, { w: 40, h: 130 }, { w: 25, h: 55 }, { w: 60, h: 145 }, { w: 35, h: 90 },
+            { w: 50, h: 75 }, { w: 28, h: 110 }, { w: 45, h: 60 }, { w: 38, h: 135 }, { w: 52, h: 95 },
+        ];
+        bldgs.forEach(b => {
+            const el = document.createElement('div');
+            el.className = 'building';
+            el.style.cssText = `width:${b.w}px;height:${b.h}px;margin-right:${4 + Math.floor(Math.random() * 12)}px;`;
+            city.appendChild(el);
+        });
+
+        /* ---- Lamp posts ---- */
+        const lampRow = document.getElementById('lamp-row');
+        const spacing = 180;
+        const count = Math.ceil(window.innerWidth / spacing) + 2;
+        for (let i = 0; i < count; i++) {
+            const lamp = document.createElement('div');
+            lamp.className = 'lamp';
+            lamp.style.left = `${i * spacing + 60}px`;
+            lamp.innerHTML = `
+            <div class="lamp-arm"></div>
+            <div class="lamp-head"></div>
+            <div class="lamp-glow"></div>
+            <div class="lamp-pole"></div>
+        `;
+            lampRow.appendChild(lamp);
+        }
+
+        /* ---- Car Animation ---- */
+        const wrapper = document.getElementById('car_wrapper');
+        const frontWheel = document.getElementById('front_wheel');
+        const rearWheel = document.getElementById('rear_wheel');
+        const carWidth = 300;
+        const speed = 3.5; // px per frame — tweak this for faster/slower
+
+        let animId = null;
+        let isMoving = false;
+        let currentX = 0;
+        let targetX = 0;
+        let wheelsSpin = false;
+
+        function startWheels() {
+            frontWheel.classList.add('spinning');
+            rearWheel.classList.add('spinning');
+            wheelsSpin = true;
+        }
+        function stopWheels() {
+            frontWheel.classList.remove('spinning');
+            rearWheel.classList.remove('spinning');
+            wheelsSpin = false;
+        }
+
+        function computeTarget() {
+            return window.innerWidth - carWidth - 10;
+        }
+
+        function animate() {
+            targetX = computeTarget();
+            const dist = targetX - currentX;
+
+            if (dist <= 1) {
+                // Reached destination
+                currentX = targetX;
+                wrapper.style.left = currentX + 'px';
+                stopWheels();
+                isMoving = false;
+                animId = null;
+                return;
+            }
+
+            // Ease-in then constant cruise
+            const step = Math.min(speed, dist);
+            currentX += step;
+            wrapper.style.left = currentX + 'px';
+            animId = requestAnimationFrame(animate);
+        }
+
+        wrapper.addEventListener('mouseenter', () => {
+            if (isMoving || currentX >= computeTarget() - 2) return;
+            isMoving = true;
+            startWheels();
+            if (animId) cancelAnimationFrame(animId);
+            animId = requestAnimationFrame(animate);
+        });
+
+        // Also allow re-hover after car resets
+        wrapper.addEventListener('mouseleave', () => {
+            // Don't stop — keep going until destination
+        });
+
+        // Double-click to reset
+        wrapper.addEventListener('dblclick', () => {
+            if (animId) cancelAnimationFrame(animId);
+            stopWheels();
+            isMoving = false;
+            currentX = 0;
+            wrapper.style.left = '0px';
+        });
+
+        // Road markings scroll only while car moves
+        const roadDashes = document.querySelector('.road-dashes::before');
+        // (CSS animation handles this automatically)
+    </script>
+</body>
+
+</html>
